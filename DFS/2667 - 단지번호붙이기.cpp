@@ -8,16 +8,6 @@ vector<int> houseNum;
 vector<vector<int> > house;
 vector<vector<bool> > visited;
 
-void printAdj()
-{
-	for (int i = 0; i < N; i++)
-	{
-		for (int j = 0; j < N; j++)
-			cout << house[i][j] << ' ';
-		cout << endl;
-	}
-}
-
 int dx[4] = { -1, 0, 1, 0 };
 int dy[4] = { 0, 1, 0, -1 };
 
@@ -38,17 +28,13 @@ void dfs(int y, int x)
 void dfsAll()
 {
 	for (int i = 0; i < N; i++)
-	{
 		for (int j = 0; j < N; j++)
-		{
 			if (!visited[i][j] && house[i][j] == 1)
 			{
 				houseNum.push_back(0);
 				dfs(i, j);
 				num++;
 			}
-		}
-	}
 }
 
 int main()
