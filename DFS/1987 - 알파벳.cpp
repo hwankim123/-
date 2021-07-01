@@ -5,6 +5,7 @@ using namespace std;
 /*
 
 단순 DFS : 채점 결과 시간 거의 1초
+그리고 string을 그대로 쓰고 dfs에서 - 'A'해줬을 때 오히려 시간이 늘어남
 백트래킹 & 분기 한정법 써서 다시 풀고 블로그 리뷰
 
 */
@@ -23,12 +24,13 @@ int dfs(int y, int x){
         return 0;
     visited[map[y][x]] = true;
 
-    // weight : 인접한 칸들 중 가장 멀리 갈 수 있는 칸의 갯수.
+    // weight : 인접한 칸들 중 가장 멀리 갈 수 있는 칸의 갯수
     int weight = 0;
     for(int i = 0; i < 4; i++){
         int temp = dfs(y + dy[i], x + dx[i]);
         if(weight < temp) weight = temp; 
     }
+    // 인접한 칸들을 모두 탐색했으면 지금 위치의 칸을 방문하지 않은 것으로 갱신
     visited[map[y][x]] = false;
 
     // 자기 자신(1)과 다음 칸을 탐색한 결과(weight)를 더함.
