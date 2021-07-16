@@ -15,6 +15,7 @@ int dfs(int y, int x){
         int newY = y + dy[i];
         int newX = x + dx[i];
         int temp = 0;
+        // 메모리 초과로 인해 기저 사례를 재귀함수 호출 부분으로 뺌.
         if(newY >= 0 && newY < n && newX >= 0 && newX < n && adj[y][x] < adj[newY][newX])
             temp = dfs(newY, newX);
         max = (max > temp) ? max : temp;
