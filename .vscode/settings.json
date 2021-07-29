@@ -5,6 +5,7 @@
         "xutility": "cpp",
         "vector": "cpp",
         "list": "cpp",
-        "utility": "cpp"
+        "utility": "cpp",
+        "queue": "cpp"
     }
 }
