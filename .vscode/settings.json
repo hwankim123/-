@@ -6,6 +6,7 @@
         "vector": "cpp",
         "list": "cpp",
         "utility": "cpp",
-        "queue": "cpp"
+        "queue": "cpp",
+        "ostream": "cpp"
     }
 }
