@@ -20,6 +20,8 @@ vector<int> dijkstra(int src)
 		int cost = -pq.top().first;
 		pq.pop();
 		
+		// 이전에 찾아놨던 거리(cost)가 다른 경로를 통해서 찾은 거리(dist[here]) 보다
+		// 길면 이를 무시하는 코드
 		if (dist[here] < cost) continue;
 
 		for (int i = 0; i < adj[here].size(); i++)
@@ -45,6 +47,7 @@ int main()
 	{
 		int a, b, c;
 		cin >> a >> b >> c;
+		//pair의 first가 cost, seconde가 도착 지점이어야 함
 		adj[a].push_back(make_pair(c, b));
 	}
 	result = dijkstra(start);
