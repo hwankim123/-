@@ -9,6 +9,7 @@
         "queue": "cpp",
         "ostream": "cpp",
         "deque": "cpp",
-        "xstring": "cpp"
+        "xstring": "cpp",
+        "string": "cpp"
     }
 }
