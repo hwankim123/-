@@ -10,6 +10,7 @@
         "ostream": "cpp",
         "deque": "cpp",
         "xstring": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "xstddef": "cpp"
     }
 }
