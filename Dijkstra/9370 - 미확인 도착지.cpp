@@ -8,7 +8,7 @@ vector<bool> tAry;
 priority_queue<int, vector<int>, greater<int> > result;
 int T, n, m, t, s, g, h;
 
-void dijkstra(vector<pair<int, int>> adj[]){
+void dijkstra(vector<pair<int, int> > adj[]){
     priority_queue<pair<int, int>>pq;
     vector<int> dist(MAX_V, INF);
     dist[s] = 0;
