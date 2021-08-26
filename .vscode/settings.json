@@ -11,6 +11,7 @@
         "deque": "cpp",
         "xstring": "cpp",
         "string": "cpp",
-        "xstddef": "cpp"
+        "xstddef": "cpp",
+        "iostream": "cpp"
     }
 }
