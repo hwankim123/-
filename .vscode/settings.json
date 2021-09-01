@@ -12,6 +12,7 @@
         "xstring": "cpp",
         "string": "cpp",
         "xstddef": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "xlocale": "cpp"
     }
 }
