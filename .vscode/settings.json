@@ -13,6 +13,8 @@
         "string": "cpp",
         "xstddef": "cpp",
         "iostream": "cpp",
-        "xlocale": "cpp"
+        "xlocale": "cpp",
+        "ios": "cpp",
+        "xiosbase": "cpp"
     }
 }
