@@ -63,6 +63,8 @@ int solve(){
 }
 
 int main(){
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
     cin >> N >> M;
     cin >> y >> x >> d;
     adj = vector<vector<int> >(N, vector<int>(M, 0));
