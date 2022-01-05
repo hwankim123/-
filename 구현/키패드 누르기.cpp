@@ -12,8 +12,6 @@ string solution(vector<int>numbers, string hand){
     string answer = "";
     int ly = 3, lx = 0, ry = 3, rx = 2;
     for(int i = 0; i < n; i++){
-        cout << "l:" << ly << ' ' << lx << "r:" << ry << ' ' << rx << endl;
-            cout << "trial" << numbers[i]<<endl;
         switch(numbers[i]){
             case 1:
             case 4:
@@ -35,7 +33,6 @@ string solution(vector<int>numbers, string hand){
             case 8:
                 int distL = abs(ly - dy[numbers[i]]) + abs(lx - dx[numbers[i]]);
                 int distR = abs(ry - dy[numbers[i]]) + abs(rx - dx[numbers[i]]);
-                cout << distL << ' ' << distR << endl;
                 if((distL < distR) || (distL == distR && hand == "left")){
                     answer += 'L';
                     ly = dy[numbers[i]];
