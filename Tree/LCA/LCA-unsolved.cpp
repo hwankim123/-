@@ -5,6 +5,8 @@
 
 #define MAX 20
 
+// 이거 리뷰하면서 LCA - 2 제출하고, 한문제 더 풀어
+
 using namespace std;
 int N, M;
 int a, b;
@@ -14,7 +16,7 @@ bool isVisited[100001];
 vector<int> adj[100001];
 
 void dfs(int here, int d)
-{
+{ // dfs 탐색을 하면서 depth(노드의 깊이)와 dp 배열(부모 노드를 저장)을 채움
     isVisited[here] = true;
     depth[here] = d;
     int there;
@@ -29,10 +31,11 @@ void dfs(int here, int d)
 }
 void setDP()
 {
-    for (int i = 1; i < MAX; i++)
+    for (int i = 1; i < MAX; i++) // 2^i번째 부모
     {
         for (int j = 1; j <= N; j++)
-        { // i-1번째 부모
+        { // node j
+            // node j의 2^i번째 부모는 (node j의 2^(i - 1)번째 부모) 노드의 2^(i - 1)번째 부모이다.
             dp[i][j] = dp[i - 1][dp[i - 1][j]];
         }
     }

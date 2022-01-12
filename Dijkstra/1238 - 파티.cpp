@@ -4,7 +4,10 @@
 using namespace std;
 
 // Dijkstra를 모든 정점에 대해 수행하여 해결. Floyd 공부 후 다시 풀고 시간 비교
-// Dijkstra vs Floyd 채점 결과 Floyd가 더 시간이 오래걸림.
+// Dijkstra N번(O(N^2lgN)) vs Floyd(O(N^3)) 채점 결과 Floyd가 더 시간이 오래걸림.
+
+// 최적 해답 : Dijkstra(O(NlgN)) 두번 돌리기
+// 그냥 그래프 말고 모든 방향을 뒤집은 새로운 그래프를 하나 더 선언
 
 int N, M, X;
 const int MAX_N = 1001;
