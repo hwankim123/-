@@ -1,20 +1,21 @@
-#include<iostream>
-#include<vector>
-#include<queue>
+#include <iostream>
+#include <vector>
+#include <queue>
 using namespace std;
 
 // Dijkstra를 모든 정점에 대해 수행하여 해결. Floyd 공부 후 다시 풀고 시간 비교
+// Dijkstra vs Floyd 채점 결과 Floyd가 더 시간이 오래걸림.
 
 int N, M, X;
 const int MAX_N = 1001;
 const int INF = 1000000000;
-vector<pair<int, int> > adj[MAX_N];
+vector<pair<int, int>> adj[MAX_N];
 vector<int> result;
 priority_queue<int> print;
 
 vector<int> Dijkstra(int src)
 {
-	priority_queue<pair<int, int> >pq;
+	priority_queue<pair<int, int>> pq;
 	pq.push(make_pair(0, src));
 	vector<int> dist(MAX_N, INF);
 	dist[src] = 0;
@@ -24,7 +25,8 @@ vector<int> Dijkstra(int src)
 		int here = pq.top().second;
 		pq.pop();
 
-		if (dist[here] < cost) continue;
+		if (dist[here] < cost)
+			continue;
 
 		int s = adj[here].size();
 		for (int i = 0; i < s; i++)
@@ -54,7 +56,8 @@ int main()
 	result = Dijkstra(X);
 	for (int i = 1; i <= N; i++)
 	{
-		if (i == X) continue;
+		if (i == X)
+			continue;
 		vector<int> temp = Dijkstra(i);
 		result[i] += temp[X];
 		print.push(result[i]);
