@@ -55,7 +55,7 @@ int main()
         cin >> arr[i];
     }
     for (int i = B - 1; i > 0; i--)
-    { // init parent node
+    { // init parent node(구간합)
         arr[i] = arr[i * 2] + arr[i * 2 + 1];
     }
 
