@@ -21,7 +21,7 @@ void Union(int child, int parent){
     if(child == parent){
         return;
     }
-    set[Find(child)] = Find(parent);
+    set[Find(child)] = Find(parent); // child의 최상단 부모의 부모를 parent의 최상단 부모로 설정
 }
 
 int main(){
