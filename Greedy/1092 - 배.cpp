@@ -5,6 +5,12 @@ using namespace std;
 #define MAXN 51
 #define MAXM 10001
 
+// 둘다 내림 정렬
+// 짐의 개수를 크래인의 개수로 나눠
+// 나눠서 나머지가 있으면 몫에다가 1을 더해
+// 순서대로 보는데 역졍렬되는걸 for문으로 돌리는데
+// 만약 못드는 경우가 생기면 1을 또 더해
+
 int N, M;
 int crain[MAXN], box[MAXM];
 bool visited[MAXM];
