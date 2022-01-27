@@ -43,7 +43,7 @@ int main()
                 // 시작 노드와 끝 노드가 같을 때 continue
                 if (j == k)
                     continue;
-                // 시작 노드에서 경유 노드의 간선 정보가 없을 때
+                // 시작 노드에서 경유 노드의 간선 정보가 없을 때 혹은
                 // 경유 노드에서 끝 노드의 간선 정보가 없을 때 continue
                 if (adj[j][i] == INF || adj[i][k] == INF)
                     continue;
