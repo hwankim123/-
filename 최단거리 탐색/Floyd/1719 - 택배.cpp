@@ -1,4 +1,6 @@
-#include<iostream>
+#include <iostream>
+#include <cstring>
+#include <vector>
 using namespace std;
 
 #define MAXN 201
@@ -6,50 +8,79 @@ using namespace std;
 
 int n, m;
 int adj[MAXN][MAXN];
-int result[MAXN][MAXN];
+int via[MAXN][MAXN]; // via[y][x] : y에서 x까지 가는 최당 경로가 경유하는 점 중 가장 번호가 큰 정점
 
-int main(){
+// 최단 경로를 찾는 알고리즘
+// y --> x까지의 최단 경로를 알고 싶으면 y --> w 까지의 경로, w --> x까지의 경로를 구한 뒤 합치면 된다.
+void reconstruct(int y, int x, vector<int> &path)
+{
+    if (via[y][x] == -1)
+    {
+        path.push_back(y);
+        if (y != x)
+            path.push_back(x);
+    }
+    else
+    {
+        int w = via[y][x];
+        reconstruct(y, w, path);
+        path.pop_back(); // w가 중복으로 들어가기 때문에 지운다.
+        reconstruct(w, x, path);
+    }
+}
+
+int main()
+{
     ios::sync_with_stdio(0);
     cin.tie(0);
     cin >> n >> m;
 
-    for(int i = 0; i <= n; i++){
-        for(int j = 0; j <= n; j++){
+    for (int i = 0; i <= n; i++)
+    {
+        for (int j = 0; j <= n; j++)
+        {
             adj[i][j] = INF;
         }
     }
 
-    for(int i = 0; i < m; i++){
+    for (int i = 0; i < m; i++)
+    {
         int a, b, c;
         cin >> a >> b >> c;
         adj[a][b] = c;
         adj[b][a] = c;
     }
 
-    for(int i = 1; i <= n; i++){
-        for(int j = 1; j <= n; j++){
-            for(int k = 1; k <= n; k++){
-                if(j == k) continue;
-                if(adj[j][i] == INF || adj[i][k] == INF) continue;
-                if(adj[j][k] > adj[j][i] + adj[i][k]){
-                    if(j == 1 && k == 6) cout << "Asd " << i << endl;
-                    if(j == 6 && k == 1) cout << "qwrfqwrfwq " << i << endl;
-                    if(result[j][k] == 0 || result[j][k] != i){
-                        result[j][k] = i;
-                    }
+    memset(via, -1, sizeof(via));
+    for (int i = 1; i <= n; i++)
+    {
+        for (int j = 1; j <= n; j++)
+        {
+            for (int k = 1; k <= n; k++)
+            {
+                if (j == k)
+                    continue;
+                if (adj[j][i] == INF || adj[i][k] == INF)
+                    continue;
+                if (adj[j][k] > adj[j][i] + adj[i][k])
+                {
+                    via[j][k] = i;
                     adj[j][k] = adj[j][i] + adj[i][k];
                 }
             }
         }
     }
-    for(int i = 1; i <= n; i++){
-        for(int j = 1; j <= n; j++){
-            if(i == j){
+    for (int i = 1; i <= n; i++)
+    {
+        for (int j = 1; j <= n; j++)
+        {
+            if (i == j)
                 cout << "- ";
-            } else if(result[i][j] == 0){
-                cout << j << ' ';
-            } else{
-                cout << result[i][j] << ' ';
+            else
+            {
+                vector<int> path;
+                reconstruct(i, j, path);
+                cout << path[1] << ' ';
             }
         }
         cout << endl;

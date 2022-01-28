@@ -1,10 +1,32 @@
 #include <iostream>
+#include <cstring>
+#include <vector>
 using namespace std;
 
 #define INF 987654321
 #define MAXN 101
 int n, m;            // n : 노드 개수 / m : 간선 개수
 int adj[MAXN][MAXN]; // 최단 거리 dp 배열
+int via[MAXN][MAXN]; // via[y][x] : y에서 x까지 가는 최당 경로가 경유하는 점 중 가장 번호가 큰 정점
+
+// 최단 경로를 찾는 알고리즘
+// y --> x까지의 최단 경로를 알고 싶으면 y --> w 까지의 경로, w --> x까지의 경로를 구한 뒤 합치면 된다.
+void reconstruct(int y, int x, vector<int> &path)
+{
+    if (via[y][x] == -1)
+    {
+        path.push_back(y);
+        if (y != x)
+            path.push_back(x);
+    }
+    else
+    {
+        int w = via[y][x];
+        reconstruct(y, w, path);
+        path.pop_back(); // w가 중복으로 들어가기 때문에 지운다.
+        reconstruct(w, x, path);
+    }
+}
 
 int main()
 {
@@ -54,6 +76,7 @@ int main()
         }
     }
 
+    cout << "<< 최단 거리 >>" << endl;
     for (int i = 1; i <= n; i++)
     {
         for (int j = 1; j <= n; j++)
@@ -68,5 +91,25 @@ int main()
             }
         }
         cout << "\n";
+    }
+
+    cout << "<< 경로 >>" << endl;
+    for (int i = 1; i <= n; i++)
+    {
+        for (int j = 1; j <= n; j++)
+        {
+            if (i == j)
+                cout << "- ";
+            else
+            {
+                vector<int> path;
+                reconstruct(i, j, path);
+                for (int k = 0; k < path.size(); k++)
+                {
+                    cout << path[k] << ' ';
+                }
+            }
+        }
+        cout << endl;
     }
 }
