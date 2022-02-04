@@ -3,80 +3,85 @@
 using namespace std;
 
 #define MAXN 5
-#define INF 10000001
 
 long long N, B;
-int result[MAXN][MAXN];
-vector<vector<int> >cache[INF];
+vector<vector<int> > mat;
+vector<vector<int> > mat2;
+vector<vector<int> > result;
+vector<vector<int> > temp;
 
-void solve(long long b){
-    if(b == 0) return;
-    if(b < INF && cache[b].size() != 0){
-        return;
-    }
-    if(b < INF){
-        cache[b] = vector<vector<int> >(N, vector<int>(N, 0));
-        solve(b / 2);
-        if(b % 2 == 0){
-            for(int i = 0; i < N; i++){
-                for(int j = 0; j < N; j++){
-                    for(int k = 0; k < N; k++){
-                        cache[b][i][j] += cache[b / 2][i][k] * cache[b / 2][k][j];
-                    }
-                    cache[b][i][j] %= 1000;
-                }
-            }
-        }
-        else{
-            solve(b / 2 + 1);
-            for(int i = 0; i < N; i++){
-                for(int j = 0; j < N; j++){
-                    for(int k = 0; k < N; k++){
-                        cache[b][i][j] += cache[b / 2][i][k] * cache[b / 2 + 1][k][j];
-                    }
-                    cache[b][i][j] %= 1000;
-                }
-            }
-        }
-    }
-    else{
-        
-    }
-}
-
-int main(){
-    cin >> N >> B;
-    cache[1] = vector<vector<int> >(N, vector<int>(N, 0));
-    for(int i = 0; i < N; i++){
-        for(int j = 0; j < N; j++){
-            cin >> cache[1][i][j];
-        }
-    }
-
-    cache[2] = vector<vector<int> >(N, vector<int>(N, 0));
+vector<vector<int> >cal(vector<vector<int> > m1, vector<vector<int> > m2){
+    vector<vector<int> >temp(N, vector<int>(N, 0));
     for(int i = 0; i < N; i++){
         for(int j = 0; j < N; j++){
             for(int k = 0; k < N; k++){
-                cache[2][i][j] += cache[1][i][k] * cache[1][k][j];
+                temp[i][j] += m1[i][k] * m2[k][j];
             }
+            temp[i][j] %= 1000;
         }
     }
-    long long count = B;
-    while(count > 0){
-        if(cache[count].size() == 0){
-            solve(count);
-        }
-        for(int i = 0; i < N; i++){
-            for(int j = 0; j < N; j++){
-                result[i][j] = (result[i][j] + cache[count][i][j]) % 1000;
-            }
-        }
-        count--;
+    return temp;
+}
+
+void solve(long long b, vector<vector<int> >& cur){
+    if(b == 1){
+        cur = mat;
+        return;
     }
+    if(b == 2){
+        cur = mat2;
+        return;
+    }
+    vector<vector<int> >temp1(N, vector<int>(N, 0));
+    vector<vector<int> >temp2(N, vector<int>(N, 0));
+    solve(b / 2, temp1);
+    if(b % 2 == 0){
+        cur = cal(temp1, temp1);
+    }
+    else{
+        temp2 = cal(temp1, mat);
+        cur = cal(temp1, temp2);
+    }
+
+}
+
+int main(){
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cin >> N >> B;
+    mat = vector<vector<int> >(N, vector<int>(N, 0));
+    mat2 = vector<vector<int> >(N, vector<int>(N, 0));
+    vector<bool> checked(B, false);
+    cout << checked.size();
     for(int i = 0; i < N; i++){
         for(int j = 0; j < N; j++){
-            cout << result[i][j] << ' ';
+            cin >> mat[i][j];
         }
-        cout << endl;
     }
+    // mat2 = cal(mat, mat);
+    // for(int i = 1; i <= B; i++){
+    //     if(i == 1) result = mat;
+    //     else if(i == 2){
+    //         for(int i = 0; i < N; i++){
+    //             for(int j = 0; j < N; j++){
+    //                 result[i][j] += mat2[i][j];
+    //             }
+    //         }
+    //     }
+    //     else{
+    //         temp = vector<vector<int> >(N, vector<int>(N, 0));
+    //         solve(i, temp);
+    //         for(int i = 0; i < N; i++){
+    //             for(int j = 0; j < N; j++){
+    //                 result[i][j] = (result[i][j] + temp[i][j]) % 1000;
+    //             }
+    //         }
+    //     }
+    // }
+    // for(int i = 0; i < N; i++){
+    //     for(int j = 0; j < N; j++){
+    //         cout << result[i][j] % 1000 << ' ';
+    //     }
+    //     cout << '\n';
+    // }
 }
