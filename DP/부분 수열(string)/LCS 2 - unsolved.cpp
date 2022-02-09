@@ -55,4 +55,12 @@ int main()
         }
         i++;
     }
+    for (int i = 0; i < s1Len; i++)
+    {
+        for (int j = 0; j < s1Len; j++)
+        {
+            cout << cache[i][j] << ' ';
+        }
+        cout << endl;
+    }
 }
