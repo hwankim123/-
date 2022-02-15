@@ -5,42 +5,43 @@ using namespace std;
 #define MAXK 500
 
 int T, K;
-int cache[501][501];
-// 두 파일의 합을 저장하는 배열과, 총 계산 결과값을 저장하는 배열을 따로 둬서 다시 풀기
-// 피라미드 형식으로 cache를 이용하는 것은 맞음
+int cache[MAXK][MAXK];
+int sum[MAXK][MAXK];
 
-int solve(int lo, int hi){
-    if(cache[lo][hi] != 0){
-        return cache[lo][hi];
-    }
-    if(lo + 1 == hi){
-        return cache[lo][hi] = cache[lo][lo] + cache[hi][hi];
-    }
-    cache[lo][hi] = 987654321;
-    for(int i = lo; i < hi; i++){
-        int a = solve(lo, i);
-        if(i != lo) a *= 2;
-        int b = solve(i + 1, hi);
-        if(i + 1 != hi) b *= 2;
-        int temp = a + b;
-        if(cache[lo][hi] > temp){
-            cache[lo][hi] = temp;
-        }
-    }
-    return cache[lo][hi];
-
-}
 
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);
     cin >> T;
-    for(int i = 0; i < T; i++){
+    for(int tc = 0; tc < T; tc++){
         memset(cache, 0, sizeof(cache));
+        memset(sum, 0, sizeof(sum));
         cin >> K;
-        for(int i = 0; i < K; i++){
-            cin >> cache[i][i];
+        for(int j = 0; j < K; j++){
+            cin >> sum[j][j];
         }
-        cout << solve(0, K - 1) << '\n';
+        for(int i = 1; i < K; i++){
+            int j = 0;
+            int k = i;
+            while(k < K){
+                sum[j][k] = sum[j + 1][k] + sum[j][k - 1] - sum[j + 1][k - 1];
+                j++; k++;
+            }
+        }
+        for(int i = 1; i < K; i++){
+            int j = 0;
+            int k = i;
+            while(k < K){
+                cache[j][k] = 987654321;
+                for(int l = 0; l < k - j; l++){
+                    int temp = cache[j][j + l] + cache[j + l + 1][k] + sum[j][k];
+                    if(temp < cache[j][k]){
+                        cache[j][k] = temp;
+                    }
+                }
+                j++; k++;
+            }
+        }
+        cout << cache[0][K - 1] << '\n';
     }
 }
